@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kelvinapp/presentation/features/game/game_bloc.dart';
 import 'package:kelvinapp/presentation/features/splash/splash_bloc.dart';
 
 import 'config/router/app_router.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => SplashBloc())
+        BlocProvider(create: (BuildContext context) => SplashBloc()),
+        BlocProvider(create: (BuildContext context) => GameBloc())
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
