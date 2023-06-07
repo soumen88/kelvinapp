@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/sprite.dart';
@@ -21,6 +23,7 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
   final _gameTriggers = locator<GameTriggers>();
   bool _isDiceRolling = true;
   bool _isAnimationLoaded = false;
+  final _random = Random();
 
   @override
   Future<void> onLoad() async {
@@ -38,13 +41,41 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
   }
 
   void rollDice(){
-    //_logger.log(tag: _TAG, message: "Is dice rolling ${_isDiceRolling}");
-    if(_isAnimationLoaded = true){
+    if(_isAnimationLoaded == true){
       if(_isDiceRolling == true){
         animation = _runDiceAnimation;
       }
       else{
-        animation = _diceSideThreeAnimation;
+        int randomValue = next(1, 6);
+        _logger.log(tag: _TAG, message: "Random value $randomValue");
+        _isAnimationLoaded = false;
+        switch(randomValue){
+          case 1: {
+            animation = _diceSideOneAnimation;
+          }
+          break;
+          case 2: {
+            animation = _diceSideTwoAnimation;
+          }
+          break;
+          case 3: {
+            animation = _diceSideThreeAnimation;
+          }
+          break;
+          case 4: {
+            animation = _diceSideFourAnimation;
+          }
+          break;
+          case 5: {
+            animation = _diceSideFiveAnimation;
+          }
+          break;
+          case 6: {
+            animation = _diceSideSixAnimation;
+          }
+          break;
+        }
+
       }
     }
 
@@ -73,8 +104,11 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
         _logger.log(tag: _TAG, message: "Trigger value $value");
         if(value != null){
           _isDiceRolling = false;
+          //_isAnimationLoaded = false;
         }
 
     });
   }
+
+  int next(int min, int max) => min + _random.nextInt(max - min);
 }

@@ -6,9 +6,11 @@ import 'package:kelvinapp/presentation/widgets/commonwidgets/button_widget.dart'
 import 'package:kelvinapp/presentation/widgets/gamefiles/board_world.dart';
 
 import '../../../injection.dart';
+import 'dice_world.dart';
 
 @RoutePage()
 class MainGameScreen extends StatelessWidget{
+  final _diceWorld = DiceWorld();
   final _boardWorld = BoardWorld();
   final _gameTriggers = locator<GameTriggers>();
   @override
