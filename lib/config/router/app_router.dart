@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:kelvinapp/presentation/widgets/independent/splash_screen.dart';
 
+import '../../presentation/widgets/gamefiles/main_game_screen.dart';
+
 part 'app_router.gr.dart';
 
 @AutoRouterConfig()
@@ -11,6 +13,9 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
         page: SplashRoute.page,
         initial: true
+    ),
+    AutoRoute(
+        page: MainGameRoute.page,
     ),
   ];
 }

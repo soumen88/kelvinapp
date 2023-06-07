@@ -12,7 +12,9 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import 'config/logger_utils.dart' as _i3;
+import 'config/logger_utils.dart' as _i4;
+import 'config/register_module.dart' as _i5;
+import 'domain/game_triggers.dart' as _i3;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -27,6 +29,10 @@ _i1.GetIt $initGetIt(
     environment,
     environmentFilter,
   );
-  gh.factory<_i3.LoggerUtils>(() => _i3.LoggerUtils());
+  final registerModule = _$RegisterModule();
+  gh.factory<_i3.GameTriggers>(() => registerModule.gameTriggers);
+  gh.factory<_i4.LoggerUtils>(() => _i4.LoggerUtils());
   return getIt;
 }
+
+class _$RegisterModule extends _i5.RegisterModule {}
