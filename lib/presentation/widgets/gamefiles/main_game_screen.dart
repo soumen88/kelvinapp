@@ -11,17 +11,15 @@ import 'package:kelvinapp/presentation/features/game/game_state.dart';
 import 'package:kelvinapp/presentation/widgets/commonwidgets/button_widget.dart';
 import 'package:kelvinapp/presentation/widgets/commonwidgets/custom_loader.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/board_world.dart';
-
 import '../../../config/star_type_enum.dart';
 import '../../../injection.dart';
 import '../../features/game/game_event.dart';
-import 'dice_world.dart';
 
 @RoutePage()
 class MainGameScreen extends StatelessWidget{
-  final _diceWorld = DiceWorld();
+
   final _boardWorld = BoardWorld();
-  final _gameTriggers = locator<GameTriggers>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,16 +83,14 @@ class MainGameScreen extends StatelessWidget{
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      GameWidget(
-                          game: _diceWorld
-                      ),
+
                       Positioned(
                           bottom: 200,
                           child: Row(
                             children: [
                               ButtonWidget(
                                 onButtonPress: (){
-                                  _gameTriggers.addAnimationEvent(true);
+
                                 },
                                 buttonText: "Stop Rolling",
                               ),

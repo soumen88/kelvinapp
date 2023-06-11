@@ -26,10 +26,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   Future<void> _throwDiceState(GameEvent event, Emitter<GameState> emit, StarTypeEnum currentStar) async{
     _gameTriggers.addCurrentPlayerEvent(currentStar);
-    emit(const GameState.displayDiceGameView());
+    _gameTriggers.addAnimationEvent(true);
+    //emit(const GameState.displayDiceGameView());
   }
 
   Future<void> _boardGameState(GameEvent event, Emitter<GameState> emit) async{
-    emit(const GameState.displayBoardGameView(StarTypeEnum.BLACK_STAR));
+    //emit(const GameState.displayBoardGameView(StarTypeEnum.BLACK_STAR));
   }
 }

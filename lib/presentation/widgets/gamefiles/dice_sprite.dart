@@ -35,6 +35,7 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
       return animation = _runDiceAnimation;
     });
     listenToAnimationChanges();
+    size = Vector2(80, 80);
   }
 
   @override

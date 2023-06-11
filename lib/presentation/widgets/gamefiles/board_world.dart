@@ -15,6 +15,7 @@ class BoardWorld extends FlameGame{
   final _blackStarSprite = StarSprite(currentStarColor: StarTypeEnum.BLACK_STAR);
   final _whiteStarSprite = StarSprite(currentStarColor: StarTypeEnum.WHITE_STAR);
   final _yellowStarSprite = StarSprite(currentStarColor: StarTypeEnum.YELLOW_STAR);
+  final _diceSprite = DiceSprite();
   final _gameTriggers = locator<GameTriggers>();
   @override
   Future<void> onLoad() async{
@@ -22,11 +23,14 @@ class BoardWorld extends FlameGame{
     await add(_blackStarSprite);
     await add(_whiteStarSprite);
     await add(_yellowStarSprite);
+    await add(_diceSprite);
 
     _logger.log(tag: _TAG, message: "Size ${_gameBackgroundSprite.size}");
     _blackStarSprite.position = Vector2(190, 365);
     _whiteStarSprite.position = Vector2(130, 425);
     _yellowStarSprite.position = Vector2(70, 485);
+    _diceSprite.position = Vector2(30, 20);
+    listenToPlayerMovements();
   }
 
   void listenToPlayerMovements(){
