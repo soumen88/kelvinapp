@@ -11,9 +11,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final _logger = locator<LoggerUtils>();
   final _TAG = "GameBloc";
   final _gameTriggers = locator<GameTriggers>();
-  StarTypeEnum currentStar = StarTypeEnum.BLACK_STAR;
+  StarTypeEnum currentStar = StarTypeEnum.YELLOW_STAR;
 
-  GameBloc() : super(const GameState.displayBoardGameView(StarTypeEnum.BLACK_STAR, 0)){
+  GameBloc() : super(const GameState.displayBoardGameView(StarTypeEnum.YELLOW_STAR, 0)){
     on<GameEvent>((events, emit) async{
       await events.map(
           throwDice: (event) async{

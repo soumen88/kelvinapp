@@ -48,25 +48,35 @@ class GetPlayerMovements{
   }
   
   PlayerMotionCounter getPlayerMotions(StarTypeEnum currentStar){
-    return PlayerMotionCounter(
-        leftAxisMotion: 8,
-        rightAxisMotion: 7,
-        upAxisMotion: 4,
-        downAxisMotion: 3
-    );
-    /*switch(currentStar){
-      case StarTypeEnum.BLACK_STAR:{
 
+    switch(currentStar){
+      case StarTypeEnum.BLACK_STAR:{
+        return PlayerMotionCounter(
+            leftAxisMotion: 8,
+            rightAxisMotion: 7,
+            upAxisMotion: 4,
+            downAxisMotion: 3
+        );
       }
 
       case StarTypeEnum.WHITE_STAR:{
-        return Tuple(item1: 1, item2: 4);
+        return PlayerMotionCounter(
+            leftAxisMotion: 10,
+            rightAxisMotion: 9,
+            upAxisMotion: 6,
+            downAxisMotion: 5
+        );
       }
 
       case StarTypeEnum.YELLOW_STAR:{
-        return Tuple(item1: 1, item2: 2);
+        return PlayerMotionCounter(
+            leftAxisMotion: 12,
+            rightAxisMotion: 11,
+            upAxisMotion: 8,
+            downAxisMotion: 7
+        );
       }
-    }*/
+    }
   }
 
   int next(int min, int max) => min + _random.nextInt(max - min);

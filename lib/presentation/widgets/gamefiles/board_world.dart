@@ -20,6 +20,8 @@ class BoardWorld extends FlameGame{
   final _diceSprite = DiceSprite();
   final _gameTriggers = locator<GameTriggers>();
   PlayerMotionCounter blackStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.BLACK_STAR);
+  PlayerMotionCounter whiteStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.WHITE_STAR);
+  PlayerMotionCounter yellowStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.YELLOW_STAR);
   @override
   Future<void> onLoad() async{
     await add(_gameBackgroundSprite);
@@ -62,12 +64,42 @@ class BoardWorld extends FlameGame{
             }
 
             case StarTypeEnum.WHITE_STAR:{
-              _whiteStarSprite.position.x = _whiteStarSprite.position.x + 60;
+              if(whiteStarMotions.rightAxisMotion > 0){
+                whiteStarMotions.rightAxisMotion--;
+                _whiteStarSprite.position.x = _whiteStarSprite.position.x + 60;
+              }
+              else if(whiteStarMotions.upAxisMotion > 0){
+                whiteStarMotions.upAxisMotion--;
+                _whiteStarSprite.position.y = _whiteStarSprite.position.y - 60;
+              }
+              else if(whiteStarMotions.leftAxisMotion > 0){
+                whiteStarMotions.leftAxisMotion--;
+                _whiteStarSprite.position.x = _whiteStarSprite.position.x - 60;
+              }
+              else if(whiteStarMotions.downAxisMotion > 0){
+                whiteStarMotions.downAxisMotion--;
+                _whiteStarSprite.position.y = _whiteStarSprite.position.y + 60;
+              }
               camera.followComponent(_whiteStarSprite);
             }
 
             case StarTypeEnum.YELLOW_STAR:{
-              _yellowStarSprite.position.x = _yellowStarSprite.position.x + 60;
+              if(yellowStarMotions.rightAxisMotion > 0){
+                yellowStarMotions.rightAxisMotion--;
+                _yellowStarSprite.position.x = _yellowStarSprite.position.x + 60;
+              }
+              else if(yellowStarMotions.upAxisMotion > 0){
+                yellowStarMotions.upAxisMotion--;
+                _yellowStarSprite.position.y = _yellowStarSprite.position.y - 60;
+              }
+              else if(yellowStarMotions.leftAxisMotion > 0){
+                yellowStarMotions.leftAxisMotion--;
+                _yellowStarSprite.position.x = _yellowStarSprite.position.x - 60;
+              }
+              else if(yellowStarMotions.downAxisMotion > 0){
+                yellowStarMotions.downAxisMotion--;
+                _yellowStarSprite.position.y = _yellowStarSprite.position.y + 60;
+              }
               camera.followComponent(_yellowStarSprite);
             }
           }
