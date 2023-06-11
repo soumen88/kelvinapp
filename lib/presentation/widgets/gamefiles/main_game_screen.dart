@@ -64,7 +64,7 @@ class MainGameScreen extends StatelessWidget{
                             onButtonPress: (){
                               BlocProvider.of<GameBloc>(context).add(const GameEvent.throwDice());
                             },
-                            buttonText: "Throw Dice",
+                            buttonText: "Move Player",
                           ),
                           Text(
                             "Dice count $diceCount",

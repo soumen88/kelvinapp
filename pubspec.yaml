@@ -54,6 +54,9 @@ dependencies:
   # Custom bottom bar in app
   salomon_bottom_bar: ^3.3.1
 
+  #display Popups in app
+  rflutter_alert: ^2.0.7
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

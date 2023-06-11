@@ -50,8 +50,8 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
         animation = _runDiceAnimation;
       }
       else{
-        int randomValue = _getPlayerMovements.generateRandomDiceValue(currentStar);
-        _logger.log(tag: _TAG, message: "Random value $randomValue");
+        //int randomValue = _getPlayerMovements.generateRandomDiceValue(currentStar);
+        int randomValue = 1;
         _isAnimationLoaded = false;
         _gameTriggers.addDiceRollEvent(currentStar, randomValue);
         switch(randomValue){

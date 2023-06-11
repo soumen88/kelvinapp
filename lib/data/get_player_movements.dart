@@ -12,15 +12,15 @@ class GetPlayerMovements{
 
     switch(currentStar){
       case StarTypeEnum.BLACK_STAR:{
-        return Tuple(item1: 1, item2: 2);
+        return Tuple(item1: 1, item2: 1);
       }
 
       case StarTypeEnum.WHITE_STAR:{
-        return Tuple(item1: 1, item2: 4);
+        return Tuple(item1: 1, item2: 1);
       }
 
       case StarTypeEnum.YELLOW_STAR:{
-        return Tuple(item1: 1, item2: 2);
+        return Tuple(item1: 1, item2: 1);
       }
     }
   }
