@@ -5,6 +5,5 @@ part 'game_event.freezed.dart';
 
 @freezed
 class GameEvent with _$GameEvent {
-  const factory GameEvent.throwDice(StarTypeEnum currentStar) = _ThrowDice;
-  const factory GameEvent.movePlayer(StarTypeEnum starTypeEnum, int numberOfPlaces) = _MovePlayer;
+  const factory GameEvent.throwDice() = _ThrowDice;
 }

@@ -107,7 +107,10 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
         _logger.log(tag: _TAG, message: "Trigger value $value");
         if(value != null){
           _isDiceRolling = false;
-          //_isAnimationLoaded = false;
+          Future.delayed(Duration(seconds: 2), (){
+            _isAnimationLoaded = true;
+            _isDiceRolling = true;
+          });
         }
     });
 

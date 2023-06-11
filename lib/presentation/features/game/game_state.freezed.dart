@@ -18,21 +18,24 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GameState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(StarTypeEnum currentStar) displayBoardGameView,
+    required TResult Function(StarTypeEnum currentStar, int diceCount)
+        displayBoardGameView,
     required TResult Function() displayDiceGameView,
     required TResult Function() loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult? Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult? Function()? displayDiceGameView,
     TResult? Function()? loading,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult Function()? displayDiceGameView,
     TResult Function()? loading,
     required TResult orElse(),
@@ -85,7 +88,7 @@ abstract class _$$_DisplayBoardGameViewCopyWith<$Res> {
           $Res Function(_$_DisplayBoardGameView) then) =
       __$$_DisplayBoardGameViewCopyWithImpl<$Res>;
   @useResult
-  $Res call({StarTypeEnum currentStar});
+  $Res call({StarTypeEnum currentStar, int diceCount});
 }
 
 /// @nodoc
@@ -100,12 +103,17 @@ class __$$_DisplayBoardGameViewCopyWithImpl<$Res>
   @override
   $Res call({
     Object? currentStar = null,
+    Object? diceCount = null,
   }) {
     return _then(_$_DisplayBoardGameView(
       null == currentStar
           ? _value.currentStar
           : currentStar // ignore: cast_nullable_to_non_nullable
               as StarTypeEnum,
+      null == diceCount
+          ? _value.diceCount
+          : diceCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -113,14 +121,16 @@ class __$$_DisplayBoardGameViewCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DisplayBoardGameView implements _DisplayBoardGameView {
-  const _$_DisplayBoardGameView(this.currentStar);
+  const _$_DisplayBoardGameView(this.currentStar, this.diceCount);
 
   @override
   final StarTypeEnum currentStar;
+  @override
+  final int diceCount;
 
   @override
   String toString() {
-    return 'GameState.displayBoardGameView(currentStar: $currentStar)';
+    return 'GameState.displayBoardGameView(currentStar: $currentStar, diceCount: $diceCount)';
   }
 
   @override
@@ -129,11 +139,13 @@ class _$_DisplayBoardGameView implements _DisplayBoardGameView {
         (other.runtimeType == runtimeType &&
             other is _$_DisplayBoardGameView &&
             (identical(other.currentStar, currentStar) ||
-                other.currentStar == currentStar));
+                other.currentStar == currentStar) &&
+            (identical(other.diceCount, diceCount) ||
+                other.diceCount == diceCount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentStar);
+  int get hashCode => Object.hash(runtimeType, currentStar, diceCount);
 
   @JsonKey(ignore: true)
   @override
@@ -145,33 +157,36 @@ class _$_DisplayBoardGameView implements _DisplayBoardGameView {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(StarTypeEnum currentStar) displayBoardGameView,
+    required TResult Function(StarTypeEnum currentStar, int diceCount)
+        displayBoardGameView,
     required TResult Function() displayDiceGameView,
     required TResult Function() loading,
   }) {
-    return displayBoardGameView(currentStar);
+    return displayBoardGameView(currentStar, diceCount);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult? Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult? Function()? displayDiceGameView,
     TResult? Function()? loading,
   }) {
-    return displayBoardGameView?.call(currentStar);
+    return displayBoardGameView?.call(currentStar, diceCount);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult Function()? displayDiceGameView,
     TResult Function()? loading,
     required TResult orElse(),
   }) {
     if (displayBoardGameView != null) {
-      return displayBoardGameView(currentStar);
+      return displayBoardGameView(currentStar, diceCount);
     }
     return orElse();
   }
@@ -212,10 +227,12 @@ class _$_DisplayBoardGameView implements _DisplayBoardGameView {
 }
 
 abstract class _DisplayBoardGameView implements GameState {
-  const factory _DisplayBoardGameView(final StarTypeEnum currentStar) =
+  const factory _DisplayBoardGameView(
+          final StarTypeEnum currentStar, final int diceCount) =
       _$_DisplayBoardGameView;
 
   StarTypeEnum get currentStar;
+  int get diceCount;
   @JsonKey(ignore: true)
   _$$_DisplayBoardGameViewCopyWith<_$_DisplayBoardGameView> get copyWith =>
       throw _privateConstructorUsedError;
@@ -259,7 +276,8 @@ class _$_DisplayDiceGameView implements _DisplayDiceGameView {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(StarTypeEnum currentStar) displayBoardGameView,
+    required TResult Function(StarTypeEnum currentStar, int diceCount)
+        displayBoardGameView,
     required TResult Function() displayDiceGameView,
     required TResult Function() loading,
   }) {
@@ -269,7 +287,8 @@ class _$_DisplayDiceGameView implements _DisplayDiceGameView {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult? Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult? Function()? displayDiceGameView,
     TResult? Function()? loading,
   }) {
@@ -279,7 +298,8 @@ class _$_DisplayDiceGameView implements _DisplayDiceGameView {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult Function()? displayDiceGameView,
     TResult Function()? loading,
     required TResult orElse(),
@@ -367,7 +387,8 @@ class _$_GameLoading implements _GameLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(StarTypeEnum currentStar) displayBoardGameView,
+    required TResult Function(StarTypeEnum currentStar, int diceCount)
+        displayBoardGameView,
     required TResult Function() displayDiceGameView,
     required TResult Function() loading,
   }) {
@@ -377,7 +398,8 @@ class _$_GameLoading implements _GameLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult? Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult? Function()? displayDiceGameView,
     TResult? Function()? loading,
   }) {
@@ -387,7 +409,8 @@ class _$_GameLoading implements _GameLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(StarTypeEnum currentStar)? displayBoardGameView,
+    TResult Function(StarTypeEnum currentStar, int diceCount)?
+        displayBoardGameView,
     TResult Function()? displayDiceGameView,
     TResult Function()? loading,
     required TResult orElse(),

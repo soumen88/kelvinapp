@@ -11,26 +11,37 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final _logger = locator<LoggerUtils>();
   final _TAG = "GameBloc";
   final _gameTriggers = locator<GameTriggers>();
+  StarTypeEnum currentStar = StarTypeEnum.BLACK_STAR;
 
-  GameBloc() : super(const GameState.displayBoardGameView(StarTypeEnum.BLACK_STAR)){
+  GameBloc() : super(const GameState.displayBoardGameView(StarTypeEnum.BLACK_STAR, 0)){
     on<GameEvent>((events, emit) async{
       await events.map(
           throwDice: (event) async{
-
-            return await _throwDiceState(event, emit, event.currentStar);
+            return await _throwDiceState(event, emit);
           },
-          movePlayer: (event) async => await _boardGameState(event, emit),
       );
     });
   }
 
-  Future<void> _throwDiceState(GameEvent event, Emitter<GameState> emit, StarTypeEnum currentStar) async{
+  ///Once dice is thrown, depending upon what star it was currently next star is picked
+  ///Sequence for stars is Black -> White -> Yellow -> repeat
+  Future<void> _throwDiceState(GameEvent event, Emitter<GameState> emit) async{
+    switch(currentStar){
+      case StarTypeEnum.BLACK_STAR:{
+        currentStar = StarTypeEnum.WHITE_STAR;
+      }
+
+      case StarTypeEnum.WHITE_STAR:{
+        currentStar = StarTypeEnum.YELLOW_STAR;
+      }
+
+      case StarTypeEnum.YELLOW_STAR:{
+        currentStar = StarTypeEnum.BLACK_STAR;
+      }
+    }
     _gameTriggers.addCurrentPlayerEvent(currentStar);
     _gameTriggers.addAnimationEvent(true);
-    //emit(const GameState.displayDiceGameView());
+    emit(GameState.displayBoardGameView(currentStar, 0));
   }
 
-  Future<void> _boardGameState(GameEvent event, Emitter<GameState> emit) async{
-    //emit(const GameState.displayBoardGameView(StarTypeEnum.BLACK_STAR));
-  }
 }

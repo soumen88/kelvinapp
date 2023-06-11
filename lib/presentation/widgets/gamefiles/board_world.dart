@@ -39,14 +39,15 @@ class BoardWorld extends FlameGame{
           switch(diceRollEvent.currentStar){
             case StarTypeEnum.BLACK_STAR:{
               _blackStarSprite.position.x = _blackStarSprite.position.x + 60;
+              camera.followComponent(_blackStarSprite);
             }
 
             case StarTypeEnum.WHITE_STAR:{
-              _blackStarSprite.position.x = _blackStarSprite.position.x + 60;
+
             }
 
             case StarTypeEnum.YELLOW_STAR:{
-              _blackStarSprite.position.x = _blackStarSprite.position.x + 60;
+
             }
           }
         }

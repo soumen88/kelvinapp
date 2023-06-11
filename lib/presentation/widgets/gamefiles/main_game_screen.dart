@@ -24,99 +24,68 @@ class MainGameScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green,
-      body: BlocBuilder<GameBloc, GameState>(
+      body: GameWidget(
+        game: _boardWorld
+      ),
+      bottomNavigationBar: BlocBuilder<GameBloc, GameState>(
         builder: (BuildContext context, GameState state){
           return state.maybeWhen(
-              displayBoardGameView: (StarTypeEnum currentStar){
-                GetAssetFilePath getAssetFilePath = GetAssetFilePath();
-                String filePath = getAssetFilePath.getStarImagePath(currentStar);
-                return Center(
-                  child: Stack(
+              displayBoardGameView: (StarTypeEnum currentStar, int diceCount){
+                String filePath = GetAssetFilePath().getStarImagePath(currentStar);
+                return Container(
+                  decoration: BoxDecoration(
+                      color: Colors.green
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      GameWidget(
-                          game: _boardWorld
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Current Player",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20
+                            ),
+                          ),
+                          Image.asset(
+                            filePath,
+                            width: 100,
+                            height: 100,
+                          ),
+                        ],
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.green
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ButtonWidget(
+                            onButtonPress: (){
+                              BlocProvider.of<GameBloc>(context).add(const GameEvent.throwDice());
+                            },
+                            buttonText: "Throw Dice",
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Current Player",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20
-                                    ),
-                                  ),
-                                  Image.asset(
-                                    filePath,
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                ],
-                              ),
-                              ButtonWidget(
-                                onButtonPress: (){
-                                  BlocProvider.of<GameBloc>(context).add(GameEvent.throwDice(currentStar));
-                                },
-                                buttonText: "Throw Dice",
-                              )
-                            ],
-                          ),
-                        )
-
-                      )
-                    ],
-                  ),
-                );
-              },
-              displayDiceGameView: (){
-                return Center(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-
-                      Positioned(
-                          bottom: 200,
-                          child: Row(
-                            children: [
-                              ButtonWidget(
-                                onButtonPress: (){
-
-                                },
-                                buttonText: "Stop Rolling",
-                              ),
-                              ButtonWidget(
-                                onButtonPress: (){
-                                  BlocProvider.of<GameBloc>(context).add(GameEvent.movePlayer(StarTypeEnum.BLACK_STAR, 4));
-                                },
-                                buttonText: "Move Player",
-                              ),
-                            ],
+                          Text(
+                            "Dice count $diceCount",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20
+                            ),
                           )
+                        ],
                       )
                     ],
                   ),
                 );
               },
-              loading: (){
-                return CustomLoader();
-              },
-              orElse: () {
+              orElse: (){
                 return CustomLoader();
               }
           );
 
-        },
-      ),
+        }
+      )
     );
   }
 
