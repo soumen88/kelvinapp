@@ -37,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen>{
           state.maybeWhen(
               startNextScreen: (){
                 context.router.replace(const MainGameRoute());
+                //context.router.replace(const HomeRoute());
               },
               orElse: (){
 

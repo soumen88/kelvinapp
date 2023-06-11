@@ -4,6 +4,8 @@ import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/sprite.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
+import 'package:kelvinapp/config/star_type_enum.dart';
+import 'package:kelvinapp/data/get_player_movements.dart';
 import 'package:kelvinapp/domain/game_triggers.dart';
 
 import '../../../injection.dart';
@@ -24,7 +26,8 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
   bool _isDiceRolling = true;
   bool _isAnimationLoaded = false;
   final _random = Random();
-
+  final _getPlayerMovements = GetPlayerMovements();
+  late StarTypeEnum currentStar;
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -46,9 +49,10 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
         animation = _runDiceAnimation;
       }
       else{
-        int randomValue = next(1, 6);
+        int randomValue = _getPlayerMovements.generateRandomDiceValue(currentStar);
         _logger.log(tag: _TAG, message: "Random value $randomValue");
         _isAnimationLoaded = false;
+        _gameTriggers.addDiceRollEvent(currentStar, randomValue);
         switch(randomValue){
           case 1: {
             animation = _diceSideOneAnimation;
@@ -81,7 +85,6 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
 
   }
 
-
   Future<void> _loadAnimations() async {
     final spriteSheet = SpriteSheet(
       image: await gameRef.images.load('dice_roll_sprite_sheet.png'),
@@ -99,14 +102,19 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
   }
 
   void listenToAnimationChanges(){
-
     _gameTriggers.diceRollStream.listen((bool? value) {
         _logger.log(tag: _TAG, message: "Trigger value $value");
         if(value != null){
           _isDiceRolling = false;
           //_isAnimationLoaded = false;
         }
+    });
 
+    _gameTriggers.currentStarStream.listen((StarTypeEnum? currentStar) {
+      if(currentStar != null){
+        _logger.log(tag: _TAG, message: "Current star received $currentStar");
+        this.currentStar = currentStar;
+      }
     });
   }
 

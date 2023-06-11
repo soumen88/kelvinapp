@@ -21,6 +21,24 @@ abstract class _$AppRouter extends RootStackRouter {
         child: MainGameScreen(),
       );
     },
+    AboutUsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AboutUsScreen(),
+      );
+    },
+    HomeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: HomeScreen(),
+      );
+    },
+    PlayGameRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: PlayGameScreen(),
+      );
+    },
     SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -40,6 +58,48 @@ class MainGameRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MainGameRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AboutUsScreen]
+class AboutUsRoute extends PageRouteInfo<void> {
+  const AboutUsRoute({List<PageRouteInfo>? children})
+      : super(
+          AboutUsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AboutUsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [HomeScreen]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+      : super(
+          HomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PlayGameScreen]
+class PlayGameRoute extends PageRouteInfo<void> {
+  const PlayGameRoute({List<PageRouteInfo>? children})
+      : super(
+          PlayGameRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PlayGameRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

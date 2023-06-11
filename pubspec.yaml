@@ -51,6 +51,9 @@ dependencies:
   #Implementing streams
   rxdart: ^0.27.7
 
+  # Custom bottom bar in app
+  salomon_bottom_bar: ^3.3.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
