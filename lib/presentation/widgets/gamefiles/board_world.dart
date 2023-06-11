@@ -43,11 +43,13 @@ class BoardWorld extends FlameGame{
             }
 
             case StarTypeEnum.WHITE_STAR:{
-
+              _whiteStarSprite.position.x = _whiteStarSprite.position.x + 60;
+              camera.followComponent(_whiteStarSprite);
             }
 
             case StarTypeEnum.YELLOW_STAR:{
-
+              _yellowStarSprite.position.x = _yellowStarSprite.position.x + 60;
+              camera.followComponent(_yellowStarSprite);
             }
           }
         }
