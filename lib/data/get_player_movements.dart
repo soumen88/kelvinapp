@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:kelvinapp/config/star_type_enum.dart';
 import 'package:kelvinapp/config/tuple.dart';
+import 'package:kelvinapp/data/models/player_motion_counter.dart';
 
 class GetPlayerMovements{
 
@@ -44,6 +45,28 @@ class GetPlayerMovements{
         return StarTypeEnum.BLACK_STAR;
       }
     }
+  }
+  
+  PlayerMotionCounter getPlayerMotions(StarTypeEnum currentStar){
+    return PlayerMotionCounter(
+        leftAxisMotion: 8,
+        rightAxisMotion: 7,
+        upAxisMotion: 4,
+        downAxisMotion: 3
+    );
+    /*switch(currentStar){
+      case StarTypeEnum.BLACK_STAR:{
+
+      }
+
+      case StarTypeEnum.WHITE_STAR:{
+        return Tuple(item1: 1, item2: 4);
+      }
+
+      case StarTypeEnum.YELLOW_STAR:{
+        return Tuple(item1: 1, item2: 2);
+      }
+    }*/
   }
 
   int next(int min, int max) => min + _random.nextInt(max - min);

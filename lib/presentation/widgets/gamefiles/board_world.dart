@@ -1,7 +1,9 @@
 import 'package:flame/game.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
 import 'package:kelvinapp/config/star_type_enum.dart';
+import 'package:kelvinapp/data/get_player_movements.dart';
 import 'package:kelvinapp/data/models/dice_roll_event.dart';
+import 'package:kelvinapp/data/models/player_motion_counter.dart';
 import 'package:kelvinapp/domain/game_triggers.dart';
 import 'package:kelvinapp/injection.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/dice_sprite.dart';
@@ -17,6 +19,7 @@ class BoardWorld extends FlameGame{
   final _yellowStarSprite = StarSprite(currentStarColor: StarTypeEnum.YELLOW_STAR);
   final _diceSprite = DiceSprite();
   final _gameTriggers = locator<GameTriggers>();
+  PlayerMotionCounter blackStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.BLACK_STAR);
   @override
   Future<void> onLoad() async{
     await add(_gameBackgroundSprite);
@@ -38,8 +41,24 @@ class BoardWorld extends FlameGame{
         if(diceRollEvent != null){
           switch(diceRollEvent.currentStar){
             case StarTypeEnum.BLACK_STAR:{
-              _blackStarSprite.position.x = _blackStarSprite.position.x + 60;
+              if(blackStarMotions.rightAxisMotion > 0){
+                blackStarMotions.rightAxisMotion--;
+                _blackStarSprite.position.x = _blackStarSprite.position.x + 60;
+              }
+              else if(blackStarMotions.upAxisMotion > 0){
+                blackStarMotions.upAxisMotion--;
+                _blackStarSprite.position.y = _blackStarSprite.position.y - 60;
+              }
+              else if(blackStarMotions.leftAxisMotion > 0){
+                blackStarMotions.leftAxisMotion--;
+                _blackStarSprite.position.x = _blackStarSprite.position.x - 60;
+              }
+              else if(blackStarMotions.downAxisMotion > 0){
+                blackStarMotions.downAxisMotion--;
+                _blackStarSprite.position.y = _blackStarSprite.position.y + 60;
+              }
               camera.followComponent(_blackStarSprite);
+              _logger.log(tag: _TAG, message: "Black star motions $blackStarMotions");
             }
 
             case StarTypeEnum.WHITE_STAR:{
