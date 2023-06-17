@@ -14,7 +14,7 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
 
   final _logger = locator<LoggerUtils>();
   final _TAG = "DiceSprite";
-  final double _animationSpeed = 0.30;
+  final double _animationSpeed = 1.00;
   late final SpriteAnimation _runDiceAnimation;
   late final SpriteAnimation _diceSideOneAnimation;
   late final SpriteAnimation _diceSideTwoAnimation;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
 import 'package:kelvinapp/config/router/app_router.dart';
 import 'package:kelvinapp/config/tuple.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../../injection.dart';
 
 @RoutePage()
@@ -15,20 +15,31 @@ class PlayGameScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Inside play game screen"),
-            ElevatedButton(
-                onPressed: () async{
-                  var result = await context.router.push(const MainGameRoute()) ;
-                  Tuple<String, String> data = result as Tuple<String, String>;
-                  _logger.log(tag: _TAG, message: "Result received $result");
-                  _logger.log(tag: _TAG, message: "Data received ${data.item1}");
-                },
-                child: Text("Start Game")
-            )
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset("assets/lottiefiles/astronaut_animation.json"),
+              const Padding(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Text("Star's Fate, is an educational game wherein we tell you a lot about astro physics. To know more start playing!",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () async{
+                    context.router.navigate(const MainGameRoute());
+                  },
+                  child: Image.asset("assets/images/start-button.png",
+                    width: 120,
+                    height: 120,
+                  )
+              ),
+            ],
+          ),
         ),
       ),
     );
