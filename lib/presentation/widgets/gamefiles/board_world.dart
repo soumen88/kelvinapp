@@ -112,12 +112,18 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
                 _yellowStarSprite.position.y = _yellowStarSprite.position.y - 60;
               }
               else if(yellowStarMotions.leftAxisMotion > 0){
+
                 yellowStarMotions.leftAxisMotion--;
                 _yellowStarSprite.position.x = _yellowStarSprite.position.x - 60;
               }
               else if(yellowStarMotions.downAxisMotion > 0){
+
                 yellowStarMotions.downAxisMotion--;
                 _yellowStarSprite.position.y = _yellowStarSprite.position.y + 60;
+              }
+              if(yellowStarMotions.downAxisMotion == 0){
+                _logger.log(tag: _TAG, message: "All Levels completed");
+                _gameTriggers.addEndGameEvent(true);
               }
               camera.followComponent(_yellowStarSprite);
             }

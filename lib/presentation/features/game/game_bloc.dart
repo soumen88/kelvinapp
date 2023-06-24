@@ -26,19 +26,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ///Once dice is thrown, depending upon what star it was currently next star is picked
   ///Sequence for stars is Black -> White -> Yellow -> repeat
   Future<void> _throwDiceState(GameEvent event, Emitter<GameState> emit) async{
-    /*switch(currentStar){
-      case StarTypeEnum.BLACK_STAR:{
-        currentStar = StarTypeEnum.WHITE_STAR;
+    switch(currentStar){
+      case StarTypeEnum.BLUE_STAR:{
+        currentStar = StarTypeEnum.ORANGE_STAR;
       }
 
-      case StarTypeEnum.WHITE_STAR:{
+      case StarTypeEnum.ORANGE_STAR:{
         currentStar = StarTypeEnum.YELLOW_STAR;
       }
 
       case StarTypeEnum.YELLOW_STAR:{
-        currentStar = StarTypeEnum.BLACK_STAR;
+        currentStar = StarTypeEnum.BLUE_STAR;
       }
-    }*/
+    }
     _gameTriggers.addCurrentPlayerEvent(currentStar);
     _gameTriggers.addAnimationEvent(true);
     emit(GameState.displayBoardGameView(currentStar, 0));

@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
+import 'package:kelvinapp/config/router/app_router.dart';
 import 'package:kelvinapp/config/tuple.dart';
 import 'package:kelvinapp/data/get_asset_file_path.dart';
 import 'package:kelvinapp/domain/game_triggers.dart';
@@ -35,7 +36,7 @@ class MainGameScreenState extends State<MainGameScreen>{
   final _logger = locator<LoggerUtils>();
   final _TAG = "MainGameScreenState";
   final _gameTriggers = locator<GameTriggers>();
-
+  bool isStartVisible = false;
 
   @override
   void initState() {
@@ -43,6 +44,11 @@ class MainGameScreenState extends State<MainGameScreen>{
     _gameTriggers.starInfoMessageEventStream.listen((String? message) {
       if(message != null && message.isNotEmpty){
         displayBottomSheet(message);
+      }
+    });
+    _gameTriggers.endGameEventStream.listen((bool? startNextScreen) {
+      if(startNextScreen != null && startNextScreen){
+        isStartVisible= true;
       }
     });
   }
@@ -81,42 +87,48 @@ class MainGameScreenState extends State<MainGameScreen>{
                   decoration: const BoxDecoration(
                       color: Colors.transparent
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Current Player",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20
+                  child: Container(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Current Player",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20
+                              ),
                             ),
-                          ),
-                          Image.asset(
-                            filePath,
-                            width: 100,
-                            height: 100,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ButtonWidget(
-                              buttonText: "Display",
-                              onButtonPress: (){
-                                displayBottomSheet("Sat ghell");
-                              }
-                          ),
-                          Joypad(
-                            onDirectionChanged: onJoypadDirectionChanged,
-                          )
-                        ],
-                      )
-                    ],
+                            Image.asset(
+                              filePath,
+                              width: 100,
+                              height: 100,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Visibility(
+                              visible: isStartVisible,
+                              child: ButtonWidget(
+                                  buttonText: "Start next screen",
+                                  onButtonPress: (){
+                                    context.router.popAndPush(const GameFinishRoute());
+                                  }
+                              ),
+                            ),
+                            Joypad(
+                              onDirectionChanged: onJoypadDirectionChanged,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
@@ -139,6 +151,9 @@ class MainGameScreenState extends State<MainGameScreen>{
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+      ),
+      constraints: BoxConstraints(
+        maxWidth: 400,
       ),
       context: context,
       barrierColor: Colors.white.withOpacity(0.0),

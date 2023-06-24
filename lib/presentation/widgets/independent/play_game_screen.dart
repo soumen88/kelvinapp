@@ -19,7 +19,11 @@ class PlayGameScreen extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Lottie.asset("assets/lottiefiles/astronaut_animation.json"),
+              Container(
+                width: 250,
+                height: 300,
+                child: Lottie.asset("assets/lottiefiles/astronaut_animation.json"),
+              ),
               const Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Text("Star's Fate, is an educational game wherein we tell you a lot about astro physics. To know more start playing!",

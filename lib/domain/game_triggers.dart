@@ -20,6 +20,8 @@ class GameTriggers{
   ///Below variable keeps track of what messages have pushed
   BehaviorSubject<String?> starInfoMessageEventStream = BehaviorSubject.seeded(null);
 
+  BehaviorSubject<bool?> endGameEventStream = BehaviorSubject.seeded(null);
+
   void addAnimationEvent(bool value){
     diceRollStream.add(value);
   }
@@ -36,4 +38,9 @@ class GameTriggers{
   void addDiceMessageEvent(String message){
     starInfoMessageEventStream.add(message);
   }
+
+  void addEndGameEvent(bool event){
+    endGameEventStream.add(event);
+  }
+
 }

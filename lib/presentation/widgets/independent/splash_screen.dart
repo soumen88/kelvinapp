@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
 import 'package:kelvinapp/config/router/app_router.dart';
@@ -23,6 +24,13 @@ class _SplashScreenState extends State<SplashScreen>{
 
 
   @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     BlocProvider.of<SplashBloc>(context).add(const SplashEvent.initialiseSplashView());
@@ -36,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen>{
           _logger.log(tag: _TAG, message: "State is $state");
           state.maybeWhen(
               startNextScreen: (){
-                context.router.replace(const MainGameRoute());
-                //context.router.replace(const HomeRoute());
+                //context.router.replace(const MainGameRoute());
+                context.router.replace(const HomeRoute());
               },
               orElse: (){
 

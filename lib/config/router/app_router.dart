@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:kelvinapp/presentation/widgets/independent/home_screen.dart';
 import 'package:kelvinapp/presentation/widgets/independent/splash_screen.dart';
 
+import '../../presentation/features/gamefinish/game_finish_screen.dart';
 import '../../presentation/widgets/gamefiles/main_game_screen.dart';
 import '../../presentation/widgets/independent/about_us_screen.dart';
 import '../../presentation/widgets/independent/play_game_screen.dart';
@@ -41,6 +42,10 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
         page: MainGameRoute.page,
         path: "/maingame"
+    ),
+    AutoRoute(
+        page: GameFinishRoute.page,
+        path: "/gameFinish"
     ),
   ];
 }
