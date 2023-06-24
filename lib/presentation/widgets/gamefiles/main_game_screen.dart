@@ -38,8 +38,7 @@ class MainGameScreenState extends State<MainGameScreen>{
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Flame.device.fullScreen();
-    Flame.device.setLandscape();
+
   } //final _tempGame = TempGame();
 
 

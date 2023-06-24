@@ -15,7 +15,8 @@ class InformationSprite extends SpriteComponent with HasGameRef<BoardWorld>, Col
   late ShapeHitbox hitbox;
   final _defaultColor = Colors.red;
   final _collisionColor = Colors.green;
-  InformationSprite({required this.informationSpritePosition});
+  String message;
+  InformationSprite({required this.informationSpritePosition, required this.message});
 
   @override
   Future<void> onLoad() async {
@@ -56,7 +57,7 @@ class InformationSprite extends SpriteComponent with HasGameRef<BoardWorld>, Col
       ) {
     super.onCollisionStart(intersectionPoints, other);
     hitbox.paint.color = _collisionColor;
-    _logger.log(tag: _TAG, message: "On collision start");
+    //_logger.log(tag: _TAG, message: "On collision start");
     if (other is StarSprite) {
       removeFromParent();
       return;
@@ -67,13 +68,13 @@ class InformationSprite extends SpriteComponent with HasGameRef<BoardWorld>, Col
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    _logger.log(tag: _TAG, message: "On collision ");
+    _logger.log(tag: _TAG, message: "On collision at ${intersectionPoints} having message $message");
   }
 
   @override
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
-    _logger.log(tag: _TAG, message: "On collision end");
+    //_logger.log(tag: _TAG, message: "On collision end");
     if (!isColliding) {
       hitbox.paint.color = _defaultColor;
     }

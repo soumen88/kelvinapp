@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:flame/camera.dart';
 import 'package:flame/collisions.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
 import 'package:kelvinapp/config/star_type_enum.dart';
@@ -41,6 +43,8 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
     await add(_orangeStarSprite);
     await add(_yellowStarSprite);
     await add(_diceSprite);
+    await Flame.device.fullScreen();
+    await Flame.device.setLandscape();
     _gameBackgroundSprite.position = Vector2(-600, -180);
     _blueStarSprite.position = Vector2(190, 365);
     _orangeStarSprite.position = Vector2(130, 425);
@@ -126,19 +130,14 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
   Color backgroundColor() => const Color(0xFF85e47b);*/
 
   void addInformationSprites() async{
-    List<Vector2> spritePositionList = [];
     Map<StarTypeEnum, List<InfoPositionModel> > starInformations = GetPlayerMovements().getInformationSpritePositions();
     for(var entries in starInformations.entries){
-      var list = entries.value.toList().map((element) => element.infoIconPosition).toList();
-      spritePositionList.addAll(list);
-    }
-    /*for(var spritePosition in spritePositionList){
-      var _informationSprite = InformationSprite(informationSpritePosition: spritePosition);
-      await add(_informationSprite);
-    }*/
+      for(var individualPositions in entries.value){
+        var _informationSprite = InformationSprite(informationSpritePosition: individualPositions.infoIconPosition, message: individualPositions.positionDescription);
+        await add(_informationSprite);
+      }
 
-    var _informationSprite = InformationSprite(informationSpritePosition: spritePositionList.first);
-    await add(_informationSprite);
+    }
   }
 
   void checkForInfo(StarTypeEnum currentStar){

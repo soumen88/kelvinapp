@@ -1,15 +1,17 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:kelvinapp/config/star_type_enum.dart';
+import 'package:kelvinapp/presentation/widgets/gamefiles/board_world.dart';
 
 import '../../../config/logger_utils.dart';
 import '../../../injection.dart';
 
-class StarSprite extends SpriteComponent with HasGameRef, HasCollisionDetection, CollisionCallbacks {
+class StarSprite extends SpriteComponent with HasGameRef<BoardWorld>, CollisionCallbacks {
   final _logger = locator<LoggerUtils>();
   final _TAG = "StarSprite";
   StarTypeEnum currentStarColor;
   StarSprite({required this.currentStarColor});
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -49,7 +51,7 @@ class StarSprite extends SpriteComponent with HasGameRef, HasCollisionDetection,
       ) {
     super.onCollisionStart(intersectionPoints, other);
 
-    _logger.log(tag: _TAG, message: "On collision start");
+    //_logger.log(tag: _TAG, message: "On collision start");
     if (other is ScreenHitbox) {
       //removeFromParent();
       return;
@@ -59,7 +61,7 @@ class StarSprite extends SpriteComponent with HasGameRef, HasCollisionDetection,
   @override
   void onCollisionEnd(PositionComponent other) {
     super.onCollisionEnd(other);
-    _logger.log(tag: _TAG, message: "On collision end");
+    //_logger.log(tag: _TAG, message: "On collision end");
   }
 
 }
