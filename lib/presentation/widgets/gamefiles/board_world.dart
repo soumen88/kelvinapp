@@ -10,6 +10,7 @@ import 'package:kelvinapp/data/models/info_position_model.dart';
 import 'package:kelvinapp/data/models/player_motion_counter.dart';
 import 'package:kelvinapp/domain/game_triggers.dart';
 import 'package:kelvinapp/injection.dart';
+import 'package:kelvinapp/presentation/widgets/gamefiles/board_background_sprite.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/dice_sprite.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/game_background_sprite.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/information_sprite.dart';
@@ -21,6 +22,7 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
   final _logger = locator<LoggerUtils>();
   final _TAG = "BoardWorld";
   final _gameBackgroundSprite = GameBackgroundSprite();
+  final _boardBackgroundSprite = BoardBackgroundSprite();
   final _blueStarSprite = StarSprite(currentStarColor: StarTypeEnum.BLUE_STAR);
   final _orangeStarSprite = StarSprite(currentStarColor: StarTypeEnum.ORANGE_STAR);
   final _yellowStarSprite = StarSprite(currentStarColor: StarTypeEnum.YELLOW_STAR);
@@ -33,18 +35,18 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
 
   @override
   Future<void> onLoad() async{
-    await add(ScreenHitbox());
     await add(_gameBackgroundSprite);
+    await add(_boardBackgroundSprite);
     await add(_blueStarSprite);
     await add(_orangeStarSprite);
     await add(_yellowStarSprite);
     await add(_diceSprite);
-
+    _gameBackgroundSprite.position = Vector2(-600, -180);
     _blueStarSprite.position = Vector2(190, 365);
     _orangeStarSprite.position = Vector2(130, 425);
     _yellowStarSprite.position = Vector2(70, 485);
     _diceSprite.position = Vector2(30, 20);
-
+    camera.followComponent(_blueStarSprite);
     listenToPlayerMovements();
     addInformationSprites();
 
@@ -120,8 +122,8 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
     });
   }
 
-  @override
-  Color backgroundColor() => const Color(0xFF85e47b);
+  /*@override
+  Color backgroundColor() => const Color(0xFF85e47b);*/
 
   void addInformationSprites() async{
     List<Vector2> spritePositionList = [];

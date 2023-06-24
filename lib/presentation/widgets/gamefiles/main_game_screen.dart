@@ -1,8 +1,10 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kelvinapp/config/logger_utils.dart';
 import 'package:kelvinapp/config/tuple.dart';
 import 'package:kelvinapp/data/get_asset_file_path.dart';
 import 'package:kelvinapp/domain/game_triggers.dart';
@@ -10,24 +12,62 @@ import 'package:kelvinapp/presentation/features/game/game_bloc.dart';
 import 'package:kelvinapp/presentation/features/game/game_state.dart';
 import 'package:kelvinapp/presentation/widgets/commonwidgets/button_widget.dart';
 import 'package:kelvinapp/presentation/widgets/commonwidgets/custom_loader.dart';
+import 'package:kelvinapp/presentation/widgets/commonwidgets/joypad.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/board_world.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/temp_game.dart';
 import '../../../config/star_type_enum.dart';
 import '../../../injection.dart';
 import '../../features/game/game_event.dart';
+import '../commonwidgets/direction.dart';
 
 @RoutePage()
-class MainGameScreen extends StatelessWidget{
+class MainGameScreen extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return MainGameScreenState();
+  }
+
+}
+
+class MainGameScreenState extends State<MainGameScreen>{
 
   final _boardWorld = BoardWorld();
-  final _tempGame = TempGame();
+  final _logger = locator<LoggerUtils>();
+  final _TAG = "MainGameScreenState";
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Flame.device.fullScreen();
+    Flame.device.setLandscape();
+  } //final _tempGame = TempGame();
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green,
-      body: GameWidget(
-        game: _tempGame
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  alignment: Alignment(-.2, 0),
+                  image: AssetImage(
+                      "assets/images/kevin_app_background.png"),
+                  fit: BoxFit.cover),
+            ),
+            alignment: Alignment.bottomCenter,
+            padding: EdgeInsets.only(bottom: 20),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: GameWidget(
+                game: _boardWorld
+            ),
+          )
+        ],
       ),
       bottomNavigationBar: BlocBuilder<GameBloc, GameState>(
         builder: (BuildContext context, GameState state){
@@ -36,7 +76,7 @@ class MainGameScreen extends StatelessWidget{
                 String filePath = GetAssetFilePath().getStarImagePath(currentStar);
                 return Container(
                   decoration: const BoxDecoration(
-                      color: Color(0xFF85e47b)
+                      color: Colors.transparent
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -62,18 +102,9 @@ class MainGameScreen extends StatelessWidget{
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ButtonWidget(
-                            onButtonPress: (){
-                              BlocProvider.of<GameBloc>(context).add(const GameEvent.throwDice());
-                            },
-                            buttonText: "Move Player",
-                          ),
-                          Text(
-                            "Dice count $diceCount",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20
-                            ),
+
+                          Joypad(
+                            onDirectionChanged: onJoypadDirectionChanged,
                           )
                         ],
                       )
@@ -91,4 +122,8 @@ class MainGameScreen extends StatelessWidget{
     );
   }
 
+  void onJoypadDirectionChanged(Direction direction) {
+    _logger.log(tag: _TAG, message: "Direction $direction");
+    BlocProvider.of<GameBloc>(context).add(const GameEvent.throwDice());
+  }
 }

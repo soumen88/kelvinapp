@@ -22,8 +22,7 @@ class TempGame extends FlameGame with HasCollisionDetection, TapDetector {
   }
 }
 
-class MyCollidable extends PositionComponent
-    with HasGameRef<TempGame>, CollisionCallbacks {
+class MyCollidable extends PositionComponent with HasGameRef<TempGame>, CollisionCallbacks {
   late Vector2 velocity;
   final _collisionColor = Colors.amber;
   final _defaultColor = Colors.cyan;
@@ -47,6 +46,7 @@ class MyCollidable extends PositionComponent
     add(hitbox);
     final center = gameRef.size / 2;
     velocity = (center - position)..scaleTo(150);
+
   }
 
   @override
