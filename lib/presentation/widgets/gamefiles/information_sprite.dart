@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
+import 'package:kelvinapp/domain/game_triggers.dart';
 import 'package:kelvinapp/injection.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/board_world.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/star_sprite.dart';
@@ -16,6 +17,8 @@ class InformationSprite extends SpriteComponent with HasGameRef<BoardWorld>, Col
   final _defaultColor = Colors.red;
   final _collisionColor = Colors.green;
   String message;
+  final _gameTriggers = locator<GameTriggers>();
+
   InformationSprite({required this.informationSpritePosition, required this.message});
 
   @override
@@ -43,40 +46,12 @@ class InformationSprite extends SpriteComponent with HasGameRef<BoardWorld>, Col
     await add(RectangleHitbox());
   }
 
-
   @override
-  void update(double dt) {
-    super.update(dt);
-    //position.add(velocity * dt);
-  }
-
-  @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints,
-      PositionComponent other,
-      ) {
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
-    hitbox.paint.color = _collisionColor;
-    //_logger.log(tag: _TAG, message: "On collision start");
-    if (other is StarSprite) {
-      removeFromParent();
-      return;
-    }
-  }
-
-
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
-    _logger.log(tag: _TAG, message: "On collision at ${intersectionPoints} having message $message");
-  }
-
-  @override
-  void onCollisionEnd(PositionComponent other) {
-    super.onCollisionEnd(other);
-    //_logger.log(tag: _TAG, message: "On collision end");
-    if (!isColliding) {
-      hitbox.paint.color = _defaultColor;
+    if(other is StarSprite){
+      _logger.log(tag: _TAG, message: "On collision at having message $message");
+      _gameTriggers.addDiceMessageEvent(message);
     }
   }
 }

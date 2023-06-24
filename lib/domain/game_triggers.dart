@@ -17,6 +17,9 @@ class GameTriggers{
   ///Below variable keeps track of what number appeared on dice and for which star
   BehaviorSubject<DiceRollEvent?> diceRollEventStream = BehaviorSubject.seeded(null);
 
+  ///Below variable keeps track of what messages have pushed
+  BehaviorSubject<String?> starInfoMessageEventStream = BehaviorSubject.seeded(null);
+
   void addAnimationEvent(bool value){
     diceRollStream.add(value);
   }
@@ -28,5 +31,9 @@ class GameTriggers{
   void addDiceRollEvent(StarTypeEnum currentStar, int diceCount){
     DiceRollEvent diceRollEvent = DiceRollEvent(currentStar: currentStar, countOnDice: diceCount);
     diceRollEventStream.add(diceRollEvent);
+  }
+
+  void addDiceMessageEvent(String message){
+    starInfoMessageEventStream.add(message);
   }
 }

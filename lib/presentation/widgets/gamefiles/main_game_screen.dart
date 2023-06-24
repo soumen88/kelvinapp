@@ -34,14 +34,18 @@ class MainGameScreenState extends State<MainGameScreen>{
   final _boardWorld = BoardWorld();
   final _logger = locator<LoggerUtils>();
   final _TAG = "MainGameScreenState";
+  final _gameTriggers = locator<GameTriggers>();
+
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-  } //final _tempGame = TempGame();
-
-
+  void initState() {
+    super.initState();
+    _gameTriggers.starInfoMessageEventStream.listen((String? message) {
+      if(message != null && message.isNotEmpty){
+        displayBottomSheet(message);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +105,12 @@ class MainGameScreenState extends State<MainGameScreen>{
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-
+                          ButtonWidget(
+                              buttonText: "Display",
+                              onButtonPress: (){
+                                displayBottomSheet("Sat ghell");
+                              }
+                          ),
                           Joypad(
                             onDirectionChanged: onJoypadDirectionChanged,
                           )
@@ -124,5 +133,24 @@ class MainGameScreenState extends State<MainGameScreen>{
   void onJoypadDirectionChanged(Direction direction) {
     _logger.log(tag: _TAG, message: "Direction $direction");
     BlocProvider.of<GameBloc>(context).add(const GameEvent.throwDice());
+  }
+
+  void displayBottomSheet(String message) async{
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+      ),
+      context: context,
+      barrierColor: Colors.white.withOpacity(0.0),
+      builder: (context) {
+        return Text(
+            message,
+            style: TextStyle(
+              fontSize: 26
+            ),
+            textAlign: TextAlign.center,
+        );
+      },
+    );
   }
 }
