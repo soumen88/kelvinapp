@@ -1,86 +1,99 @@
+import 'dart:ui';
+
+import 'package:flame/collisions.dart';
 import 'package:flame/game.dart';
 import 'package:kelvinapp/config/logger_utils.dart';
 import 'package:kelvinapp/config/star_type_enum.dart';
 import 'package:kelvinapp/data/get_player_movements.dart';
 import 'package:kelvinapp/data/models/dice_roll_event.dart';
+import 'package:kelvinapp/data/models/info_position_model.dart';
 import 'package:kelvinapp/data/models/player_motion_counter.dart';
 import 'package:kelvinapp/domain/game_triggers.dart';
 import 'package:kelvinapp/injection.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/dice_sprite.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/game_background_sprite.dart';
+import 'package:kelvinapp/presentation/widgets/gamefiles/information_sprite.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/star_sprite.dart';
 
-class BoardWorld extends FlameGame{
+import '../../features/game/grass_background.dart';
+
+class BoardWorld extends FlameGame with HasCollisionDetection {
   final _logger = locator<LoggerUtils>();
   final _TAG = "BoardWorld";
   final _gameBackgroundSprite = GameBackgroundSprite();
-  final _blackStarSprite = StarSprite(currentStarColor: StarTypeEnum.BLACK_STAR);
-  final _whiteStarSprite = StarSprite(currentStarColor: StarTypeEnum.WHITE_STAR);
+  final _blueStarSprite = StarSprite(currentStarColor: StarTypeEnum.BLUE_STAR);
+  final _orangeStarSprite = StarSprite(currentStarColor: StarTypeEnum.ORANGE_STAR);
   final _yellowStarSprite = StarSprite(currentStarColor: StarTypeEnum.YELLOW_STAR);
+
   final _diceSprite = DiceSprite();
   final _gameTriggers = locator<GameTriggers>();
-  PlayerMotionCounter blackStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.BLACK_STAR);
-  PlayerMotionCounter whiteStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.WHITE_STAR);
+  PlayerMotionCounter blueStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.BLUE_STAR);
+  PlayerMotionCounter orangeStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.ORANGE_STAR);
   PlayerMotionCounter yellowStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.YELLOW_STAR);
+
   @override
   Future<void> onLoad() async{
+    await add(ScreenHitbox());
     await add(_gameBackgroundSprite);
-    await add(_blackStarSprite);
-    await add(_whiteStarSprite);
+    await add(_blueStarSprite);
+    await add(_orangeStarSprite);
     await add(_yellowStarSprite);
     await add(_diceSprite);
 
-    _logger.log(tag: _TAG, message: "Size ${_gameBackgroundSprite.size}");
-    _blackStarSprite.position = Vector2(190, 365);
-    _whiteStarSprite.position = Vector2(130, 425);
+    _blueStarSprite.position = Vector2(190, 365);
+    _orangeStarSprite.position = Vector2(130, 425);
     _yellowStarSprite.position = Vector2(70, 485);
     _diceSprite.position = Vector2(30, 20);
+
     listenToPlayerMovements();
+    addInformationSprites();
+
   }
 
   void listenToPlayerMovements(){
     _gameTriggers.diceRollEventStream.listen((DiceRollEvent? diceRollEvent) {
         if(diceRollEvent != null){
           switch(diceRollEvent.currentStar){
-            case StarTypeEnum.BLACK_STAR:{
-              if(blackStarMotions.rightAxisMotion > 0){
-                blackStarMotions.rightAxisMotion--;
-                _blackStarSprite.position.x = _blackStarSprite.position.x + 60;
+            case StarTypeEnum.BLUE_STAR:{
+              if(blueStarMotions.rightAxisMotion > 0){
+                blueStarMotions.rightAxisMotion--;
+                _blueStarSprite.position.x = _blueStarSprite.position.x + 60;
               }
-              else if(blackStarMotions.upAxisMotion > 0){
-                blackStarMotions.upAxisMotion--;
-                _blackStarSprite.position.y = _blackStarSprite.position.y - 60;
+              else if(blueStarMotions.upAxisMotion > 0){
+                blueStarMotions.upAxisMotion--;
+                _blueStarSprite.position.y = _blueStarSprite.position.y - 60;
               }
-              else if(blackStarMotions.leftAxisMotion > 0){
-                blackStarMotions.leftAxisMotion--;
-                _blackStarSprite.position.x = _blackStarSprite.position.x - 60;
+              else if(blueStarMotions.leftAxisMotion > 0){
+                blueStarMotions.leftAxisMotion--;
+                _blueStarSprite.position.x = _blueStarSprite.position.x - 60;
               }
-              else if(blackStarMotions.downAxisMotion > 0){
-                blackStarMotions.downAxisMotion--;
-                _blackStarSprite.position.y = _blackStarSprite.position.y + 60;
+              else if(blueStarMotions.downAxisMotion > 0){
+                blueStarMotions.downAxisMotion--;
+                _blueStarSprite.position.y = _blueStarSprite.position.y + 60;
               }
-              camera.followComponent(_blackStarSprite);
-              _logger.log(tag: _TAG, message: "Black star motions $blackStarMotions");
+              camera.followComponent(_blueStarSprite);
+              _logger.log(tag: _TAG, message: "Blue star motions ${_blueStarSprite.position}");
+
             }
 
-            case StarTypeEnum.WHITE_STAR:{
-              if(whiteStarMotions.rightAxisMotion > 0){
-                whiteStarMotions.rightAxisMotion--;
-                _whiteStarSprite.position.x = _whiteStarSprite.position.x + 60;
+            case StarTypeEnum.ORANGE_STAR:{
+              if(orangeStarMotions.rightAxisMotion > 0){
+                orangeStarMotions.rightAxisMotion--;
+                _orangeStarSprite.position.x = _orangeStarSprite.position.x + 60;
               }
-              else if(whiteStarMotions.upAxisMotion > 0){
-                whiteStarMotions.upAxisMotion--;
-                _whiteStarSprite.position.y = _whiteStarSprite.position.y - 60;
+              else if(orangeStarMotions.upAxisMotion > 0){
+                orangeStarMotions.upAxisMotion--;
+                _orangeStarSprite.position.y = _orangeStarSprite.position.y - 60;
               }
-              else if(whiteStarMotions.leftAxisMotion > 0){
-                whiteStarMotions.leftAxisMotion--;
-                _whiteStarSprite.position.x = _whiteStarSprite.position.x - 60;
+              else if(orangeStarMotions.leftAxisMotion > 0){
+                orangeStarMotions.leftAxisMotion--;
+                _orangeStarSprite.position.x = _orangeStarSprite.position.x - 60;
               }
-              else if(whiteStarMotions.downAxisMotion > 0){
-                whiteStarMotions.downAxisMotion--;
-                _whiteStarSprite.position.y = _whiteStarSprite.position.y + 60;
+              else if(orangeStarMotions.downAxisMotion > 0){
+                orangeStarMotions.downAxisMotion--;
+                _orangeStarSprite.position.y = _orangeStarSprite.position.y + 60;
               }
-              camera.followComponent(_whiteStarSprite);
+              camera.followComponent(_orangeStarSprite);
             }
 
             case StarTypeEnum.YELLOW_STAR:{
@@ -106,4 +119,40 @@ class BoardWorld extends FlameGame{
         }
     });
   }
+
+  @override
+  Color backgroundColor() => const Color(0xFF85e47b);
+
+  void addInformationSprites() async{
+    List<Vector2> spritePositionList = [];
+    Map<StarTypeEnum, List<InfoPositionModel> > starInformations = GetPlayerMovements().getInformationSpritePositions();
+    for(var entries in starInformations.entries){
+      var list = entries.value.toList().map((element) => element.infoIconPosition).toList();
+      spritePositionList.addAll(list);
+    }
+    /*for(var spritePosition in spritePositionList){
+      var _informationSprite = InformationSprite(informationSpritePosition: spritePosition);
+      await add(_informationSprite);
+    }*/
+
+    var _informationSprite = InformationSprite(informationSpritePosition: spritePositionList.first);
+    await add(_informationSprite);
+  }
+
+  void checkForInfo(StarTypeEnum currentStar){
+    switch(currentStar){
+      case StarTypeEnum.BLUE_STAR:{
+
+      }
+      case StarTypeEnum.ORANGE_STAR:{
+
+      }
+      case StarTypeEnum.YELLOW_STAR:{
+
+      }
+    }
+
+
+  }
+
 }

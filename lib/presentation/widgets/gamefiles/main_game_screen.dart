@@ -11,6 +11,7 @@ import 'package:kelvinapp/presentation/features/game/game_state.dart';
 import 'package:kelvinapp/presentation/widgets/commonwidgets/button_widget.dart';
 import 'package:kelvinapp/presentation/widgets/commonwidgets/custom_loader.dart';
 import 'package:kelvinapp/presentation/widgets/gamefiles/board_world.dart';
+import 'package:kelvinapp/presentation/widgets/gamefiles/temp_game.dart';
 import '../../../config/star_type_enum.dart';
 import '../../../injection.dart';
 import '../../features/game/game_event.dart';
@@ -19,13 +20,14 @@ import '../../features/game/game_event.dart';
 class MainGameScreen extends StatelessWidget{
 
   final _boardWorld = BoardWorld();
+  final _tempGame = TempGame();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green,
       body: GameWidget(
-        game: _boardWorld
+        game: _tempGame
       ),
       bottomNavigationBar: BlocBuilder<GameBloc, GameState>(
         builder: (BuildContext context, GameState state){
@@ -33,8 +35,8 @@ class MainGameScreen extends StatelessWidget{
               displayBoardGameView: (StarTypeEnum currentStar, int diceCount){
                 String filePath = GetAssetFilePath().getStarImagePath(currentStar);
                 return Container(
-                  decoration: BoxDecoration(
-                      color: Colors.green
+                  decoration: const BoxDecoration(
+                      color: Color(0xFF85e47b)
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

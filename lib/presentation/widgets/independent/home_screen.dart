@@ -10,10 +10,7 @@ class HomeScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      appBarBuilder: (_, tabsRouter) => AppBar(
-        title: Text("Home Screen"),
-      ),
-      backgroundColor: Colors.green,
+      backgroundColor: Color(0xFF1c1a5f),
       routes: const [
         PlayGameRoute(),
         AboutUsRoute()
@@ -26,7 +23,6 @@ class HomeScreen extends StatelessWidget{
           ),
           currentIndex: tabsRouter.activeIndex,
           onTap: (int index){
-
             //context.read(counterProvider).pageStatus(index);
             return tabsRouter.setActiveIndex(index);
           },

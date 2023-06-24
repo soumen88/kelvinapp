@@ -1,5 +1,5 @@
 enum StarTypeEnum{
-  BLACK_STAR,
-  WHITE_STAR,
+  BLUE_STAR,
+  ORANGE_STAR,
   YELLOW_STAR,
 }

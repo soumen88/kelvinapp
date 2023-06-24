@@ -36,8 +36,8 @@ class _SplashScreenState extends State<SplashScreen>{
           _logger.log(tag: _TAG, message: "State is $state");
           state.maybeWhen(
               startNextScreen: (){
-                //context.router.replace(const MainGameRoute());
-                context.router.replace(const HomeRoute());
+                context.router.replace(const MainGameRoute());
+                //context.router.replace(const HomeRoute());
               },
               orElse: (){
 
@@ -45,25 +45,42 @@ class _SplashScreenState extends State<SplashScreen>{
           );
         },
         builder: (BuildContext context, SplashState state){
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/app_logo.png",
-                  width: 200,
-                  height: 200,
+          return Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      alignment: Alignment(-.2, 0),
+                      image: AssetImage(
+                          "assets/images/kevin_app_background.png"),
+                      fit: BoxFit.cover),
                 ),
-                SizedBox(
-                  height: 20,
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.only(bottom: 20),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/app_new_logo.png",
+                      width: 200,
+                      height: 200,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    const Text("Star's Fate",
+                      style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
                 ),
-                const Text("Star's Fate",
-                  style: TextStyle(
-                    fontSize: 24
-                  ),
-                )
-              ],
-            ),
-
+              )
+            ],
           );
         },
       ),
