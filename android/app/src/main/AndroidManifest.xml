@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kelvin.astrophysics.kelvinapp">
     <application
-        android:label="kelvinapp"
+        android:label="Stars Fate"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

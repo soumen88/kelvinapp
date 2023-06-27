@@ -19,32 +19,38 @@ mixin _$GameEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() throwDice,
+    required TResult Function() initGame,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? throwDice,
+    TResult? Function()? initGame,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? throwDice,
+    TResult Function()? initGame,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_ThrowDice value) throwDice,
+    required TResult Function(_InitGame value) initGame,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ThrowDice value)? throwDice,
+    TResult? Function(_InitGame value)? initGame,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ThrowDice value)? throwDice,
+    TResult Function(_InitGame value)? initGame,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,6 +112,7 @@ class _$_ThrowDice implements _ThrowDice {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() throwDice,
+    required TResult Function() initGame,
   }) {
     return throwDice();
   }
@@ -114,6 +121,7 @@ class _$_ThrowDice implements _ThrowDice {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? throwDice,
+    TResult? Function()? initGame,
   }) {
     return throwDice?.call();
   }
@@ -122,6 +130,7 @@ class _$_ThrowDice implements _ThrowDice {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? throwDice,
+    TResult Function()? initGame,
     required TResult orElse(),
   }) {
     if (throwDice != null) {
@@ -134,6 +143,7 @@ class _$_ThrowDice implements _ThrowDice {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_ThrowDice value) throwDice,
+    required TResult Function(_InitGame value) initGame,
   }) {
     return throwDice(this);
   }
@@ -142,6 +152,7 @@ class _$_ThrowDice implements _ThrowDice {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_ThrowDice value)? throwDice,
+    TResult? Function(_InitGame value)? initGame,
   }) {
     return throwDice?.call(this);
   }
@@ -150,6 +161,7 @@ class _$_ThrowDice implements _ThrowDice {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ThrowDice value)? throwDice,
+    TResult Function(_InitGame value)? initGame,
     required TResult orElse(),
   }) {
     if (throwDice != null) {
@@ -161,4 +173,106 @@ class _$_ThrowDice implements _ThrowDice {
 
 abstract class _ThrowDice implements GameEvent {
   const factory _ThrowDice() = _$_ThrowDice;
+}
+
+/// @nodoc
+abstract class _$$_InitGameCopyWith<$Res> {
+  factory _$$_InitGameCopyWith(
+          _$_InitGame value, $Res Function(_$_InitGame) then) =
+      __$$_InitGameCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_InitGameCopyWithImpl<$Res>
+    extends _$GameEventCopyWithImpl<$Res, _$_InitGame>
+    implements _$$_InitGameCopyWith<$Res> {
+  __$$_InitGameCopyWithImpl(
+      _$_InitGame _value, $Res Function(_$_InitGame) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_InitGame implements _InitGame {
+  const _$_InitGame();
+
+  @override
+  String toString() {
+    return 'GameEvent.initGame()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_InitGame);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() throwDice,
+    required TResult Function() initGame,
+  }) {
+    return initGame();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? throwDice,
+    TResult? Function()? initGame,
+  }) {
+    return initGame?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? throwDice,
+    TResult Function()? initGame,
+    required TResult orElse(),
+  }) {
+    if (initGame != null) {
+      return initGame();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ThrowDice value) throwDice,
+    required TResult Function(_InitGame value) initGame,
+  }) {
+    return initGame(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ThrowDice value)? throwDice,
+    TResult? Function(_InitGame value)? initGame,
+  }) {
+    return initGame?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ThrowDice value)? throwDice,
+    TResult Function(_InitGame value)? initGame,
+    required TResult orElse(),
+  }) {
+    if (initGame != null) {
+      return initGame(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _InitGame implements GameEvent {
+  const factory _InitGame() = _$_InitGame;
 }

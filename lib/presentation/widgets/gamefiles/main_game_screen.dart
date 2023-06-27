@@ -41,14 +41,20 @@ class MainGameScreenState extends State<MainGameScreen>{
   @override
   void initState() {
     super.initState();
+    ///Adding event as false to reset the game
+    BlocProvider.of<GameBloc>(context).add(const GameEvent.initGame());
     _gameTriggers.starInfoMessageEventStream.listen((String? message) {
       if(message != null && message.isNotEmpty){
         displayBottomSheet(message);
       }
     });
+
     _gameTriggers.endGameEventStream.listen((bool? startNextScreen) {
-      if(startNextScreen != null && startNextScreen){
+      if(startNextScreen != null && startNextScreen && mounted){
         isStartVisible= true;
+        setState(() {
+
+        });
       }
     });
   }
@@ -118,6 +124,7 @@ class MainGameScreenState extends State<MainGameScreen>{
                               child: ButtonWidget(
                                   buttonText: "Start next screen",
                                   onButtonPress: (){
+                                    _gameTriggers.resetStreams();
                                     context.router.popAndPush(const GameFinishRoute());
                                   }
                               ),
@@ -133,7 +140,7 @@ class MainGameScreenState extends State<MainGameScreen>{
                 );
               },
               orElse: (){
-                return CustomLoader();
+                return const CustomLoader();
               }
           );
 
@@ -143,7 +150,6 @@ class MainGameScreenState extends State<MainGameScreen>{
   }
 
   void onJoypadDirectionChanged(Direction direction) {
-    _logger.log(tag: _TAG, message: "Direction $direction");
     BlocProvider.of<GameBloc>(context).add(const GameEvent.throwDice());
   }
 
@@ -167,5 +173,12 @@ class MainGameScreenState extends State<MainGameScreen>{
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    //_boardWorld.removeFromParent();
+    _boardWorld.detach();
   }
 }

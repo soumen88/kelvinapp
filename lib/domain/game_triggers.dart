@@ -43,4 +43,11 @@ class GameTriggers{
     endGameEventStream.add(event);
   }
 
+  void resetStreams(){
+    endGameEventStream.add(null);
+    starInfoMessageEventStream.add(null);
+    currentStarStream.add(null);
+    diceRollStream.add(null);
+  }
+
 }

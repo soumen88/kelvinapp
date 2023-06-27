@@ -18,7 +18,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState>{
 
 
   Future<void> _init(SplashEvent event, Emitter<SplashState> emit) async{
-    _logger.log( tag: _TAG, message: "inside init function");
+    //_logger.log( tag: _TAG, message: "inside init function");
     emit(const SplashState.displayView());
     //await Future.delayed(Duration(milliseconds: 100));
     await Future.delayed(Duration(milliseconds: 3000));

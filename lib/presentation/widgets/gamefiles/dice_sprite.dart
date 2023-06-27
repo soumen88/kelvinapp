@@ -104,7 +104,6 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
 
   void listenToAnimationChanges(){
     _gameTriggers.diceRollStream.listen((bool? value) {
-        _logger.log(tag: _TAG, message: "Trigger value $value");
         if(value != null){
           _isDiceRolling = false;
           Future.delayed(Duration(seconds: 2), (){
@@ -116,7 +115,6 @@ class DiceSprite extends SpriteAnimationComponent with HasGameRef{
 
     _gameTriggers.currentStarStream.listen((StarTypeEnum? currentStar) {
       if(currentStar != null){
-        _logger.log(tag: _TAG, message: "Current star received $currentStar");
         this.currentStar = currentStar;
       }
     });

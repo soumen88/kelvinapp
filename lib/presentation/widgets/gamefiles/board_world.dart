@@ -28,7 +28,6 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
   final _blueStarSprite = StarSprite(currentStarColor: StarTypeEnum.BLUE_STAR);
   final _orangeStarSprite = StarSprite(currentStarColor: StarTypeEnum.ORANGE_STAR);
   final _yellowStarSprite = StarSprite(currentStarColor: StarTypeEnum.YELLOW_STAR);
-
   final _diceSprite = DiceSprite();
   final _gameTriggers = locator<GameTriggers>();
   PlayerMotionCounter blueStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.BLUE_STAR);
@@ -37,6 +36,7 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
 
   @override
   Future<void> onLoad() async{
+    _logger.log(tag: _TAG, message: "Inside on load function");
     await add(_gameBackgroundSprite);
     await add(_boardBackgroundSprite);
     await add(_blueStarSprite);
@@ -49,7 +49,7 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
     _blueStarSprite.position = Vector2(190, 365);
     _orangeStarSprite.position = Vector2(130, 425);
     _yellowStarSprite.position = Vector2(70, 485);
-    _diceSprite.position = Vector2(30, 20);
+    _diceSprite.position = Vector2(-100, 20);
     camera.followComponent(_blueStarSprite);
     listenToPlayerMovements();
     addInformationSprites();
@@ -78,8 +78,7 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
                 _blueStarSprite.position.y = _blueStarSprite.position.y + 60;
               }
               camera.followComponent(_blueStarSprite);
-              _logger.log(tag: _TAG, message: "Blue star motions ${_blueStarSprite.position}");
-
+              //_logger.log(tag: _TAG, message: "Blue star motions ${_blueStarSprite.position} and down axis motion ${blueStarMotions.downAxisMotion}");
             }
 
             case StarTypeEnum.ORANGE_STAR:{
@@ -103,7 +102,9 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
             }
 
             case StarTypeEnum.YELLOW_STAR:{
+
               if(yellowStarMotions.rightAxisMotion > 0){
+                _logger.log(tag: _TAG, message: "Adding yellow sprite motion");
                 yellowStarMotions.rightAxisMotion--;
                 _yellowStarSprite.position.x = _yellowStarSprite.position.x + 60;
               }
@@ -130,6 +131,13 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
           }
         }
     });
+
+    _gameTriggers.endGameEventStream.listen((bool? startNextScreen) {
+      if(startNextScreen != null && startNextScreen == false){
+        _logger.log(tag: _TAG, message: "Doing reset game now");
+        resetGame();
+      }
+    });
   }
 
   /*@override
@@ -142,7 +150,6 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
         var _informationSprite = InformationSprite(informationSpritePosition: individualPositions.infoIconPosition, message: individualPositions.positionDescription);
         await add(_informationSprite);
       }
-
     }
   }
 
@@ -158,8 +165,12 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
 
       }
     }
+  }
 
-
+  void resetGame(){
+    _blueStarSprite.position = Vector2(190, 365);
+    _orangeStarSprite.position = Vector2(130, 425);
+    _yellowStarSprite.position = Vector2(70, 485);
   }
 
 }

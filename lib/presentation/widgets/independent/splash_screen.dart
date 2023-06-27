@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen>{
     return Scaffold(
       body: BlocConsumer<SplashBloc, SplashState>(
         listener: (BuildContext context, SplashState state){
-          _logger.log(tag: _TAG, message: "State is $state");
+          //_logger.log(tag: _TAG, message: "State is $state");
           state.maybeWhen(
               startNextScreen: (){
                 //context.router.replace(const MainGameRoute());
