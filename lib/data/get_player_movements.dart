@@ -103,19 +103,19 @@ class GetPlayerMovements{
     var starType1PositionModel3 = InfoPositionModel(
         currentStar: StarTypeEnum.BLUE_STAR,
         infoIconPosition: Vector2(550, 130),
-        positionDescription: "Stage 3: the star fuses Helium and makes heavier elements."
+        positionDescription: "Stage 3: fuses Helium and makes heavier elements up to Iron"
     );
 
     var starType1PositionModel4 = InfoPositionModel(
         currentStar: StarTypeEnum.BLUE_STAR,
         infoIconPosition: Vector2(130, 190),
-        positionDescription: "Stage 4: the star sheds most of its mass forming a cloud called ‘planetary nebula’"
+        positionDescription: "Stage 4: fusing iron requires a lot of input power so positively-charged nuclei overcome the force of gravity while crushing iron atoms, leading to an explosion called ‘supernova’"
     );
 
     var starType1PositionModel5 = InfoPositionModel(
         currentStar: StarTypeEnum.BLUE_STAR,
         infoIconPosition: Vector2(130, 310),
-        positionDescription: "Stage 5: the star becomes a white dwarf"
+        positionDescription: "Stage 5: the star becomes either a neutron star or a black hole due to higher mass."
     );
     infoSpritePositions1.add(starType1PositionModel1);
     infoSpritePositions1.add(starType1PositionModel2);
@@ -174,25 +174,25 @@ class GetPlayerMovements{
     var starType3PositionModel2 = InfoPositionModel(
         currentStar: StarTypeEnum.YELLOW_STAR,
         infoIconPosition: Vector2(730, 430),
-        positionDescription: "Stage 2: the outer layers start to expand outward becoming a red supergiant"
+        positionDescription: "Stage 2: the outer layers start to expand outward becoming a red giant"
     );
 
     var starType3PositionModel3 = InfoPositionModel(
         currentStar: StarTypeEnum.YELLOW_STAR,
         infoIconPosition: Vector2(670, 10),
-        positionDescription: "Stage 3: fuses Helium and makes heavier elements up to Iron"
+        positionDescription: "Stage 3: the star fuses Helium and makes heavier elements"
     );
 
     var starType3PositionModel4 = InfoPositionModel(
         currentStar: StarTypeEnum.YELLOW_STAR,
         infoIconPosition: Vector2(10, 70),
-        positionDescription: "Stage 4: fusing iron requires a lot of input power so positively-charged nuclei overcome the force of gravity while crushing iron atoms, leading to an explosion called ‘supernova’"
+        positionDescription: "Stage 4: the star sheds most of its mass forming a cloud called ‘planetary nebula’"
     );
 
     var starType3PositionModel5 = InfoPositionModel(
         currentStar: StarTypeEnum.YELLOW_STAR,
         infoIconPosition: Vector2(10, 430),
-        positionDescription: "Stage 5: the star becomes either a neutron star or a black hole due to higher mass"
+        positionDescription: "Stage 5: the star becomes a white dwarf"
     );
 
     infoSpritePositions3.add(starType3PositionModel1);

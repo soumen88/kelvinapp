@@ -33,7 +33,7 @@ class InformationSprite extends SpriteComponent with HasGameRef<BoardWorld>, Col
         textureSize: Vector2.all(48),
       ),
     );*/
-    size = Vector2(40, 40);
+    size = Vector2(26, 26);
     ///Initial position of the information icon
     position = informationSpritePosition;
     final defaultPaint = Paint()

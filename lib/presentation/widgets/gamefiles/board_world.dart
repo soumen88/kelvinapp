@@ -153,20 +153,6 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
     }
   }
 
-  void checkForInfo(StarTypeEnum currentStar){
-    switch(currentStar){
-      case StarTypeEnum.BLUE_STAR:{
-
-      }
-      case StarTypeEnum.ORANGE_STAR:{
-
-      }
-      case StarTypeEnum.YELLOW_STAR:{
-
-      }
-    }
-  }
-
   void resetGame(){
     _blueStarSprite.position = Vector2(190, 365);
     _orangeStarSprite.position = Vector2(130, 425);
