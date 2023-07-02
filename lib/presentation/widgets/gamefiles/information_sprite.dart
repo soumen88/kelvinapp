@@ -50,7 +50,7 @@ class InformationSprite extends SpriteComponent with HasGameRef<BoardWorld>, Col
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
     if(other is StarSprite){
-      //_logger.log(tag: _TAG, message: "On collision at having message $message");
+      _logger.log(tag: _TAG, message: "On collision at having message $message");
       _gameTriggers.addDiceMessageEvent(message);
     }
   }

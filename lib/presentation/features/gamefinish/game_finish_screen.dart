@@ -23,7 +23,11 @@ class _GameFinishScreenState extends State<GameFinishScreen>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.asset("assets/lottiefiles/game_finish.json"),
+            Container(
+              width: 300,
+              height: 300,
+              child: Lottie.asset("assets/lottiefiles/game_finish.json"),
+            ),
             SizedBox(
               height: 30,
             ),

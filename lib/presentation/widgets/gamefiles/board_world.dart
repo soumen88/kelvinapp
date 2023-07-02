@@ -149,7 +149,11 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
       for(var individualPositions in entries.value){
         var _informationSprite = InformationSprite(informationSpritePosition: individualPositions.infoIconPosition, message: individualPositions.positionDescription);
         await add(_informationSprite);
+        /*if(entries.key == StarTypeEnum.ORANGE_STAR){
+          _logger.log(tag: _TAG, message: "Position information $individualPositions");
+        }*/
       }
+
     }
   }
 
@@ -157,6 +161,9 @@ class BoardWorld extends FlameGame with HasCollisionDetection {
     _blueStarSprite.position = Vector2(190, 365);
     _orangeStarSprite.position = Vector2(130, 425);
     _yellowStarSprite.position = Vector2(70, 485);
+    blueStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.BLUE_STAR);
+    orangeStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.ORANGE_STAR);
+    yellowStarMotions = GetPlayerMovements().getPlayerMotions(StarTypeEnum.YELLOW_STAR);
   }
 
 }

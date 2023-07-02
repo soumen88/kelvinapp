@@ -128,13 +128,13 @@ class GetPlayerMovements{
     ///Orange star positions
     var starType2PositionModel1 = InfoPositionModel(
         currentStar: StarTypeEnum.ORANGE_STAR,
-        infoIconPosition: Vector2(670, 370),
+        infoIconPosition: Vector2(610, 430),
         positionDescription: "Stage 1: the star collapses under its own gravity which squishes the core, increasing the pressure and temperature"
     );
 
     var starType2PositionModel2 = InfoPositionModel(
         currentStar: StarTypeEnum.ORANGE_STAR,
-        infoIconPosition: Vector2(610, 430),
+        infoIconPosition: Vector2(670, 370),
         positionDescription: "Stage 2: the outer layers start to expand outward becoming a red supergiant"
     );
 

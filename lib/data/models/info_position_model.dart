@@ -8,4 +8,9 @@ class InfoPositionModel{
 
   InfoPositionModel(
       {required this.infoIconPosition, required this.currentStar, required this.positionDescription});
+
+  @override
+  String toString() {
+    return 'InfoPositionModel{infoIconPosition: $infoIconPosition, positionDescription: $positionDescription}';
+  }
 }
