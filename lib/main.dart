@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => GameBloc())
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
